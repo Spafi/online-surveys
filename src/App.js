@@ -1,13 +1,19 @@
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
-import Navbar from './components/Navbar';
 import Main from './components/Main';
+import Navbar from './components/Navbar';
+import SurveyCreation from './components/surveyCreation/SurveyCreation';
+
 function App() {
-  return (
+	return (
+		<Router>
 			<div className='App'>
-				<Navbar />
-				<Main />
+        <Navbar/>
+				<Route path='/' exact component={Main} />
+				<Route path='/create' component={SurveyCreation} />
 			</div>
-		);
+		</Router>
+	);
 }
 
 export default App;

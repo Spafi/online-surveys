@@ -1,8 +1,9 @@
 import Login from './login/Login';
 const Main = () => {
 	return (
-		<div className='h-screen bg-m-gray-lighter w-screen'>
-			<div className='p-64 border-2 grid grid-cols-2 h-full'>
+		<div className='bg-m-gray-lighter w-full'>
+		
+			<div className='p-64 grid grid-cols-2 h-screen'>
 				<div className='font-montserrat text-white z-10 relative'>
 					<svg
 						id='Splash'
