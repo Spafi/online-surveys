@@ -6,9 +6,9 @@ module.exports = {
 			fontFamily: {
 				montserrat: ['"Montserrat"', 'cursive'],
 			},
-			 zIndex: {
-         '-10': '-10',
-        },
+			zIndex: {
+				'-10': '-10',
+			},
 			colors: {
 				transparent: 'transparent',
 				current: 'currentColor',
@@ -21,7 +21,12 @@ module.exports = {
 					darker: '#d90429',
 					DEFAULT: '#ef233c',
 				},
-				
+				'm-pink': {
+					default: '#ff416c',
+				},
+				'm-orange': {
+					default: '#ff4b2b',
+				},
 			},
 		},
 	},
