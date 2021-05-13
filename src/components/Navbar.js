@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 	return (
-		<div className='h-16 bg-gradient-to-r from-m-pink-default to-m-orange-default absolute w-full z-50 shadow-xl flex justify-between px-8 text-white text-xl capitalize'>
+		<div className='h-16 bg-gradient-to-r from-m-pink-default to-m-orange-default absolute w-full z-50 shadow-md flex justify-between px-8 text-white text-xl capitalize rounded-b-md'>
 			<Link to='/' className='items-center flex'>
 				<div>
 					<svg

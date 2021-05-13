@@ -1,7 +1,7 @@
 import Login from './login/Login';
 const Main = () => {
 	return (
-		<div className='bg-m-gray-lighter w-full'>
+		<div className=' w-full'>
 		
 			<div className='p-64 grid grid-cols-2 h-screen'>
 				<div className='font-montserrat text-white z-10 relative'>
