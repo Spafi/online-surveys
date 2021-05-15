@@ -19,10 +19,18 @@ const SurveyCreation = () => {
 	const onChangeTitle = (e) => {
 		const title = e.target.value;
 		setTitle(title);
+		console.log(questions);
 	};
 	const onChangeDescription = (e) => {
 		const description = e.target.value;
 		setDescription(description);
+	};
+
+	const onChangeQuestionTitle = (e, questionId) => {
+		const questionTitle = e.target.value;
+		for (let question of questions) {
+			if (question.id === questionId) question.title = questionTitle;
+		}
 	};
 
 	const UUIDv4 = () => {
@@ -151,6 +159,7 @@ const SurveyCreation = () => {
 						key={question.id}
 						type={question.type}
 						onRemove={removeQuestion}
+						onChangeQuestionTitle={onChangeQuestionTitle}
 					/>
 				))}
 			</div>
