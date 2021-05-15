@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ReactComponent as Add } from './icons/add.svg';
 import { ReactComponent as Trash } from './icons/trash.svg';
 const Question = ({ id, type, onRemove, onChangeQuestionTitle }) => {
@@ -7,6 +7,18 @@ const Question = ({ id, type, onRemove, onChangeQuestionTitle }) => {
 	const onChangeOption = (e) => {
 		const option = e.target.value;
 		setOptions(option);
+	};
+
+	useEffect(() => {
+		console.log(options);
+	}, [options])
+
+
+	const handleInputChange = (e, inputId) => {
+		const input = e.target.value;
+		for (let option of options) {
+			if (option.id === inputId) option.value = input;
+		}
 	};
 
 	const removeOption = (optionId) => {
@@ -51,12 +63,16 @@ const Question = ({ id, type, onRemove, onChangeQuestionTitle }) => {
 					<select
 						name='rating-from'
 						id='rating-from'
-						className='p-2 mr-8 rounded-xl outline-none'
+						className='p-2 mr-8 rounded-xl outline-none border focus:border-m-red w-14'
 					>
 						<option value='0'>0</option>
 						<option value='1'>1</option>
 					</select>
-					<select name='rating-to' id='rating-to' className='p-2 rounded-xl'>
+					<select
+						name='rating-to'
+						id='rating-to'
+						className='p-2 rounded-xl outline-none border focus:border-m-red w-14'
+					>
 						<option value='2'>2</option>
 						<option value='3'>3</option>
 						<option value='4'>4</option>
@@ -77,11 +93,17 @@ const Question = ({ id, type, onRemove, onChangeQuestionTitle }) => {
 					<div className='pl-2 flex flex-col gap-2'>
 						{options.map((option) => (
 							<div key={option.id} className='flex flex-row'>
-								<input type='checkbox' name='checkbox' value='' className='h-5 w-5' disabled />
+								<input
+									type='checkbox'
+									name='checkbox'
+									className='h-5 w-5'
+									disabled
+								/>
 								<input
 									type='text'
 									placeholder={`Option ${option.id}`}
 									className='ml-2 outline-none border-b focus-within:border-m-red w-4/5'
+									onChange={(e) => handleInputChange(e, option.id)}
 								/>
 								{options.length > 1 && (
 									<div
@@ -124,6 +146,7 @@ const Question = ({ id, type, onRemove, onChangeQuestionTitle }) => {
 									type='text'
 									placeholder={`Option ${option.id}`}
 									className='ml-2 outline-none border-b focus-within:border-m-red w-4/5'
+									onChange={(e) => handleInputChange(e, option.id)}
 								/>
 								{options.length > 1 && (
 									<div

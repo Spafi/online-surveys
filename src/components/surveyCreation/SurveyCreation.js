@@ -26,7 +26,7 @@ const SurveyCreation = () => {
 		setDescription(description);
 	};
 
-	const onChangeQuestionTitle = (e, questionId) => {
+	const handleQuestionTitleChange = (e, questionId) => {
 		const questionTitle = e.target.value;
 		for (let question of questions) {
 			if (question.id === questionId) question.title = questionTitle;
@@ -49,7 +49,7 @@ const SurveyCreation = () => {
 	};
 
 	return (
-		<div className='bg-purple-100 grid w-screen h-screen pt-16 grid-cols-6 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full relative'>
+		<div className='bg-purple-100 grid w-screen h-screen pt-16 grid-cols-6 scrollbar-thin scrollbar-thumb-red-300 scrollbar-track-transparent overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full relative'>
 			{/* Left Buttons */}
 			<div className='fixed h-full w-1/6 col-span-1 p-8 flex flex-col gap-4 border-gradient-t-pink-orange border-r-2'>
 				<div
@@ -159,7 +159,7 @@ const SurveyCreation = () => {
 						key={question.id}
 						type={question.type}
 						onRemove={removeQuestion}
-						onChangeQuestionTitle={onChangeQuestionTitle}
+						onChangeQuestionTitle={handleQuestionTitleChange}
 					/>
 				))}
 			</div>
