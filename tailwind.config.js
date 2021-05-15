@@ -50,12 +50,13 @@ module.exports = {
 				'm-red': {
 					darker: '#d90429',
 					DEFAULT: '#ef233c',
+					lighter: '#fffbff',
 				},
 				'm-pink': {
-					default: '#ff416c',
+					DEFAULT: '#ff416c',
 				},
 				'm-orange': {
-					default: '#ff4b2b',
+					DEFAULT: '#ff4b2b',
 				},
 			},
 		},

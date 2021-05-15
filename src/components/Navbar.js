@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 	return (
-		<div className='h-16 bg-gradient-to-r from-m-pink-default to-m-orange-default absolute w-full z-50 shadow-md flex justify-between px-8 text-white text-xl capitalize rounded-b-md'>
+		<div className='h-16 bg-gradient-to-r from-m-pink to-m-orange absolute w-full z-50 shadow-md flex justify-between px-8 text-white text-xl capitalize rounded-b-md'>
 			<Link to='/' className='items-center flex'>
 				<div>
 					<svg
 						id='Diamond'
-						className='h-14 fill-current'
-						enable-background='new 0 0 491.203 491.203'
+						className='h-12 fill-current'
+						enableBackground='new 0 0 491.203 491.203'
 						viewBox='0 0 491.203 491.203'
 						xmlns='http://www.w3.org/2000/svg'
 					>
@@ -22,11 +22,11 @@ const Navbar = () => {
 						</g>
 					</svg>
 				</div>
-				<div className='pl-4 text-4xl font-bold'>Next Surveys</div>
+				<div className='pl-4 text-3xl font-bold'>Next Surveys</div>
 			</Link>
-			<div className='items-center flex gap-6 font-semibold text-xl'>
+			<div className='items-center flex gap-6 font-semibold text-lg'>
 				<div>
-					<Link to={'/create'}>Create</Link>
+					<Link to='/create'>Create</Link>
 				</div>
 				<div>Inca Ceva</div>
 				<div>About Us</div>
