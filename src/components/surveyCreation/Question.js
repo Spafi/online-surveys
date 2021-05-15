@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import QuestionBody from './QuestionBody';
 import UUIDv4 from '../Utils';
 import { ReactComponent as Trash } from './icons/trash.svg';
@@ -11,10 +11,6 @@ const Question = ({ id, type, onRemove, onChangeQuestionTitle }) => {
 			setOptions(newOptions);
 		}
 	};
-
-	useEffect(() => {
-		console.log(options);
-	}, [options]);
 
 	const handleInputChange = (e, inputId) => {
 		const input = e.target.value;

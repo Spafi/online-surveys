@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+	
 	return (
 		<div className='h-16 bg-gradient-to-r from-m-pink to-m-orange absolute w-full z-50 shadow-md flex justify-between px-8 text-white text-xl capitalize rounded-b-md'>
 			<Link to='/' className='items-center flex'>
@@ -24,9 +25,9 @@ const Navbar = () => {
 				</div>
 				<div className='pl-4 text-3xl font-bold'>Next Surveys</div>
 			</Link>
-			<div className='items-center flex gap-6 font-semibold text-lg'>
+			<div className='items-center flex gap-6 text-xl'>
 				<div>
-					<Link to='/create'>Create</Link>
+					<Link to='/create' className='border-b border-transparent hover:border-white'>Create</Link>
 				</div>
 				<div>Inca Ceva</div>
 				<div>About Us</div>

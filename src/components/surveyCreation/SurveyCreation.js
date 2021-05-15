@@ -9,6 +9,7 @@ import Question from './Question';
 import UUIDv4 from '../Utils';
 
 const SurveyCreation = () => {
+
 	// eslint-disable-next-line
 	const [surveyContent, setSurveyContent] = useState({});
 	// eslint-disable-next-line

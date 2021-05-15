@@ -9,7 +9,7 @@ function App() {
 		<Router>
 			<div className='App'>
 				<Navbar />
-				<Route path='/' exact component={Main} />
+				<Route path='/' exact component={Main}/>
 				<Route path='/create' component={SurveyCreation} />
 			</div>
 		</Router>
