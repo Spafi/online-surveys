@@ -19,8 +19,6 @@ const SurveyCreation = () => {
 	const onChangeTitle = (e) => {
 		const title = e.target.value;
 		setTitle(title);
-		console.log(title);
-		console.log(questions);
 	};
 	const onChangeDescription = (e) => {
 		const description = e.target.value;
@@ -35,14 +33,25 @@ const SurveyCreation = () => {
 		});
 	};
 
+	const removeQuestion = (questionId) => {
+		const newQuestions = questions.filter(
+			(question) => question.id !== questionId
+		);
+		setQuestions(newQuestions);
+	};
+
 	return (
 		<div className='bg-purple-100 grid w-screen h-screen pt-16 grid-cols-6 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full relative'>
+			{/* Left Buttons */}
 			<div className='fixed h-full w-1/6 col-span-1 p-8 flex flex-col gap-4 border-gradient-t-pink-orange border-r-2'>
 				<div
 					onClick={() =>
 						setQuestions([
 							...questions,
-							<Question key={UUIDv4()} id={UUIDv4()} type={'shortAnswer'} />,
+							{
+								id: UUIDv4(),
+								type: 'shortAnswer',
+							},
 						])
 					}
 					className='bg-white h-12 border-2 border-m-gray-lighter cursor-pointer shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
@@ -55,7 +64,10 @@ const SurveyCreation = () => {
 					onClick={() =>
 						setQuestions([
 							...questions,
-							<Question key={UUIDv4()} id={UUIDv4()} type={'longAnswer'} />,
+							{
+								id: UUIDv4(),
+								type: 'longAnswer',
+							},
 						])
 					}
 					className='bg-white h-12 border-2 border-m-gray-lighter cursor-pointer shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-500 ease-in-out transform hover:scale-110 hover:-translate-y-1'
@@ -68,7 +80,10 @@ const SurveyCreation = () => {
 					onClick={() =>
 						setQuestions([
 							...questions,
-							<Question key={UUIDv4()} id={UUIDv4()} type={'rating'} />,
+							{
+								id: UUIDv4(),
+								type: 'rating',
+							},
 						])
 					}
 					className='bg-white h-12 border-2 border-m-gray-lighter cursor-pointer shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-500 ease-in-out transform hover:scale-110 hover:-translate-y-1'
@@ -81,7 +96,10 @@ const SurveyCreation = () => {
 					onClick={() =>
 						setQuestions([
 							...questions,
-							<Question key={UUIDv4()} id={UUIDv4()} type={'multipleChoice'} />,
+							{
+								id: UUIDv4(),
+								type: 'multipleChoice',
+							},
 						])
 					}
 					className='bg-white h-12 border-2 border-m-gray-lighter cursor-pointer shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-500 ease-in-out transform hover:scale-110 hover:-translate-y-1'
@@ -94,7 +112,10 @@ const SurveyCreation = () => {
 					onClick={() =>
 						setQuestions([
 							...questions,
-							<Question key={UUIDv4()} id={UUIDv4()} type={'singleChoice'} />,
+							{
+								id: UUIDv4(),
+								type: 'singleChoice',
+							},
 						])
 					}
 					className='bg-white h-12 border-2 border-m-gray-lighter cursor-pointer shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-500 ease-in-out transform hover:scale-110 hover:-translate-y-1'
@@ -103,6 +124,9 @@ const SurveyCreation = () => {
 					<p>Single Choice</p>
 				</div>
 			</div>
+			{/* END Left Buttons */}
+
+			{/* Survey Display */}
 			<div
 				id='surveyForm'
 				className='col-span-4 col-start-2 p-12 flex flex-col gap-4 '
@@ -121,10 +145,16 @@ const SurveyCreation = () => {
 						className='text-lg border rounded-xl px-4 outline-none w-full focus-within:border-m-pink'
 					/>
 				</div>
-
-				<Question type={'singleChoice'} />
-				{questions.map((question) => question)}
+				{questions.map((question) => (
+					<Question
+						id={question.id}
+						key={question.id}
+						type={question.type}
+						onRemove={removeQuestion}
+					/>
+				))}
 			</div>
+			{/* END Survey Display */}
 		</div>
 	);
 };

@@ -1,6 +1,6 @@
 import { ReactComponent as Add } from './icons/add.svg';
 import { ReactComponent as Trash } from './icons/trash.svg';
-const Question = ({ type }) => {
+const Question = ({ id, type, onRemove }) => {
 	let questionBody;
 	switch (type) {
 		case 'shortAnswer':
@@ -117,9 +117,11 @@ const Question = ({ type }) => {
 			questionBody = '';
 	}
 
-
 	return (
-		<div className='bg-white w-3/4 self-center rounded-xl p-4 shadow-md focus-within:shadow-xl focus-within:bg-gray-50 grid grid-cols-12 gap-4'>
+		<div
+		
+			className='bg-white w-3/4 self-center rounded-xl p-4 shadow-md focus-within:shadow-xl focus-within:bg-gray-50 grid grid-cols-12 gap-4'
+		>
 			<div className='col-span-11'>
 				<input
 					type='text'
@@ -128,8 +130,8 @@ const Question = ({ type }) => {
 				/>
 				{questionBody}
 			</div>
-			<div className='flex justify-end'>
-				<Trash className='w-6 h-6 mt-2' />
+			<div className='flex justify-end cursor-pointer'>
+				<Trash className='w-6 h-6 mt-2' onClick={() => onRemove(id)} />
 			</div>
 		</div>
 	);
