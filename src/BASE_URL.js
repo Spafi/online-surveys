@@ -9,3 +9,5 @@ export const registerUrl = BASE_URL + '/api/v1/registration';
 export const loginUrl = BASE_URL + '/api/v1/authenticate';
 
 export const helloResource = BASE_URL + '/hello';
+
+export const surveyUrl = BASE_URL + '/api/v1/survey';

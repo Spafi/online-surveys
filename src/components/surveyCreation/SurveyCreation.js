@@ -6,9 +6,11 @@ import { ReactComponent as Radio } from './icons/radio.svg';
 import { ReactComponent as Checkbox } from './icons/checkbox.svg';
 import { ReactComponent as Save } from './icons/save.svg';
 import { ReactComponent as Upload } from './icons/upload.svg';
+import axios from 'axios';
 
 import Question from './Question';
 import UUIDv4 from '../Utils';
+import { surveyUrl } from '../../BASE_URL';
 
 const SurveyCreation = () => {
 	// eslint-disable-next-line
@@ -52,7 +54,31 @@ const SurveyCreation = () => {
 
 	const handleSave = () => {
 		let surveyContent = { title, description, questions };
-		console.log(surveyContent);
+		getIp();
+		saveSurvey(surveyContent);
+	};
+
+	const getIp = async () => {
+		await axios
+			.get('http://www.geoplugin.net/json.gp')
+			.then((response) => {
+				console.log(`Your IP: ${response.data.geoplugin_request}`);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
+	const saveSurvey = (survey) => {
+		// axios
+		// 	.post(surveyUrl, survey)
+		// 	.then((response) => {
+		// 		console.log(response);
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log(error);
+		// 	});
+		console.log(survey);
 	};
 
 	return (
@@ -178,23 +204,25 @@ const SurveyCreation = () => {
 			{/* END Survey Display */}
 
 			<div className='fixed right-0 h-screen w-52 p-8 flex flex-col justify-between'>
-				{questions.length > 0 && (<div className='flex flex-col gap-4'>
-					<div
-						onClick={handleSave}
-						className='bg-white h-12 cursor-pointer text-lg shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
-					>
-						<Save className='h-8 pr-4' />
-						<p>Save</p>
-					</div>
+				{questions.length > 0 && (
+					<div className='flex flex-col gap-4'>
+						<div
+							onClick={handleSave}
+							className='bg-white h-12 cursor-pointer text-lg shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
+						>
+							<Save className='h-8 pr-4' />
+							<p>Save</p>
+						</div>
 
-					<div
-						// onClick={handleSave}
-						className='bg-white h-12 cursor-pointer text-lg shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
-					>
-						<Upload className='h-12 pr-4 w-12' />
-						<p>Send</p>
+						<div
+							// onClick={handleSave}
+							className='bg-white h-12 cursor-pointer text-lg shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
+						>
+							<Upload className='h-12 pr-4 w-12' />
+							<p>Send</p>
+						</div>
 					</div>
-				</div>)}
+				)}
 			</div>
 		</div>
 	);
