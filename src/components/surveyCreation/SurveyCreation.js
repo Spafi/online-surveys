@@ -10,7 +10,7 @@ import axios from 'axios';
 
 import Question from './Question';
 import UUIDv4 from '../Utils';
-import { surveyUrl } from '../../BASE_URL';
+// import { surveyUrl } from '../../BASE_URL';
 
 const SurveyCreation = () => {
 	// eslint-disable-next-line
