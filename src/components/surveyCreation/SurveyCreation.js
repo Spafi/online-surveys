@@ -4,11 +4,13 @@ import { ReactComponent as ShortText } from './icons/short-text.svg';
 import { ReactComponent as Rating } from './icons/rating.svg';
 import { ReactComponent as Radio } from './icons/radio.svg';
 import { ReactComponent as Checkbox } from './icons/checkbox.svg';
+import { ReactComponent as Save } from './icons/save.svg';
+import { ReactComponent as Upload } from './icons/upload.svg';
 
 import Question from './Question';
 import UUIDv4 from '../Utils';
 
-const SurveyCreation = (props) => {
+const SurveyCreation = () => {
 	// eslint-disable-next-line
 	const [title, setTitle] = useState('');
 	// eslint-disable-next-line
@@ -138,19 +140,6 @@ const SurveyCreation = (props) => {
 						<p>Single Choice</p>
 					</div>
 				</div>
-				{questions.length > 0 && (
-					<div className='pl-8 pb-20 flex justify-between w-full'>
-						<button
-							onClick={handleSave}
-							className='bg-m-orange text-white font-bold text-xl h-8 px-4 cursor-pointer shadow-md hover:shadow-xl flex items-center rounded-3xl transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
-						>
-							Save
-						</button>
-						<button className='bg-m-red text-white font-bold text-xl h-8 px-4 cursor-pointer shadow-md hover:shadow-xl flex items-center rounded-3xl transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'>
-							Send
-						</button>
-					</div>
-				)}
 			</div>
 			{/* END Left Buttons */}
 
@@ -187,6 +176,26 @@ const SurveyCreation = (props) => {
 				))}
 			</div>
 			{/* END Survey Display */}
+
+			<div className='fixed right-0 h-screen w-52 p-8 flex flex-col justify-between'>
+				{questions.length > 0 && (<div className='flex flex-col gap-4'>
+					<div
+						onClick={handleSave}
+						className='bg-white h-12 cursor-pointer text-lg shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
+					>
+						<Save className='h-8 pr-4' />
+						<p>Save</p>
+					</div>
+
+					<div
+						// onClick={handleSave}
+						className='bg-white h-12 cursor-pointer text-lg shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
+					>
+						<Upload className='h-12 pr-4 w-12' />
+						<p>Send</p>
+					</div>
+				</div>)}
+			</div>
 		</div>
 	);
 };
