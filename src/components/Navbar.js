@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+	let location = useLocation()
 	return (
 		<div className='h-16 bg-gradient-to-r from-m-pink to-m-orange absolute w-full z-50 shadow-md flex justify-between px-8 text-white text-xl capitalize rounded-b-md'>
 			<Link to='/' className='items-center flex'>
@@ -26,7 +27,8 @@ const Navbar = () => {
 			</Link>
 			<div className='items-center flex gap-6 text-xl'>
 				<div>
-					<Link to='/create' className='border-b border-transparent hover:border-white'>Create</Link>
+
+					{location.pathname !== '/create' &&(<Link to='/create' className='border-b border-transparent hover:border-white'>Create</Link>)}
 				</div>
 				<div>My Page</div>
 				<div>About Us</div>

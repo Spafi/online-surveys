@@ -2,10 +2,12 @@ import { useState } from 'react';
 import QuestionBody from './QuestionBody';
 import UUIDv4 from '../Utils';
 import { ReactComponent as Trash } from './icons/trash.svg';
+import { ReactComponent as Copy } from './icons/copy.svg';
 const Question = ({
 	id,
 	type,
 	onRemove,
+	onDuplicate,
 	onChangeQuestionTitle,
 	updateQuestionOptions,
 	updateQuestionSelect,
@@ -13,11 +15,13 @@ const Question = ({
 	const [options, setOptions] = useState([{ id: UUIDv4(), value: '' }]);
 	const [select, setSelect] = useState({ ratingFrom: '0', ratingTo: '5' });
 
+	if (type === 'rating') updateQuestionSelect(id, select);
+
 	const removeOption = (optionId) => {
 		if (options.length > 1) {
 			let newOptions = options.filter((option) => option.id !== optionId);
 			setOptions(newOptions);
-			updateQuestionOptions(id, options);
+			updateQuestionOptions(id, newOptions);
 		}
 	};
 
@@ -32,7 +36,7 @@ const Question = ({
 	const handleSelectChange = (e, selectId) => {
 		select[selectId] = e.target.value;
 		setSelect({ ...select });
-		updateQuestionSelect(id, select)
+		updateQuestionSelect(id, select);
 	};
 
 	return (
@@ -47,14 +51,30 @@ const Question = ({
 				<QuestionBody
 					type={type}
 					options={options}
+					select={select}
 					setOptions={setOptions}
 					removeOption={removeOption}
+					updateQuestionSelect={updateQuestionSelect}
 					handleInputChange={handleInputChange}
 					handleSelectChange={handleSelectChange}
 				/>
 			</div>
-			<div className='flex justify-end cursor-pointer'>
-				<Trash className='w-6 h-6 mt-2' onClick={() => onRemove(id)} />
+			<div className='flex flex-col gap-2 justify-between items-end cursor-pointer pr-3'>
+				<Trash className='w-6 h-6' onClick={() => onRemove(id)} />
+				<Copy
+					className='w-6 h-6 cursor-not-allowed'
+					onClick={() => onDuplicate(id)}
+				/>
+				<div className='flex items-center '>
+					<label htmlFor='required' className='pr-3'>
+						Required
+					</label>
+					<input
+						type='checkbox'
+						name='required'
+						className='h-6 w-6 cursor-not-allowed'
+					/>
+				</div>
 			</div>
 		</div>
 	);

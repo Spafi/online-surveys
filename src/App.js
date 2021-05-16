@@ -9,8 +9,10 @@ function App() {
 		<Router>
 			<div className='App'>
 				<Navbar />
-				<Route path='/' exact component={Main}/>
-				<Route path='/create' component={SurveyCreation} />
+				<Route path='/' exact component={Main} />
+				<Route path='/create'>
+					<SurveyCreation />
+				</Route>
 			</div>
 		</Router>
 	);

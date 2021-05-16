@@ -4,6 +4,7 @@ import UUIDv4 from '../Utils';
 const QuestionBody = ({
 	type,
 	options,
+	select,
 	setOptions,
 	handleInputChange,
 	handleSelectChange,
@@ -44,7 +45,7 @@ const QuestionBody = ({
 						name='ratingFrom'
 						id='ratingFrom'
 						className='p-2 mr-8 rounded-xl outline-none border focus:border-m-red w-16'
-						defaultValue='0'
+						value={select.ratingFrom}
 						onChange={(e) => handleSelectChange(e, 'ratingFrom')}
 					>
 						<option value='0'>0</option>
@@ -54,7 +55,7 @@ const QuestionBody = ({
 						name='ratingTo'
 						id='ratingTo'
 						className='p-2 rounded-xl outline-none border focus:border-m-red w-16'
-						defaultValue='5'
+						value={select.ratingTo}
 						onChange={(e) => handleSelectChange(e, 'ratingTo')}
 					>
 						<option value='2'>2</option>
@@ -68,7 +69,7 @@ const QuestionBody = ({
 						<option value='10'>10</option>
 					</select>
 				</div>
-			);
+			);		
 			break;
 
 		case 'multipleChoice':
@@ -93,6 +94,7 @@ const QuestionBody = ({
 									</div>
 								)}
 							</div>
+							
 						))}
 					</div>
 					<div
