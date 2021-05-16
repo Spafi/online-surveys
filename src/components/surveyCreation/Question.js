@@ -2,14 +2,22 @@ import { useState } from 'react';
 import QuestionBody from './QuestionBody';
 import UUIDv4 from '../Utils';
 import { ReactComponent as Trash } from './icons/trash.svg';
-const Question = ({ id, type, onRemove, onChangeQuestionTitle }) => {
+const Question = ({
+	id,
+	type,
+	onRemove,
+	onChangeQuestionTitle,
+	updateQuestionOptions,
+	updateQuestionSelect,
+}) => {
 	const [options, setOptions] = useState([{ id: UUIDv4(), value: '' }]);
-	const [select, setSelect] = useState({'ratingFrom': '0', 'ratingTo': '5'})
+	const [select, setSelect] = useState({ ratingFrom: '0', ratingTo: '5' });
 
 	const removeOption = (optionId) => {
 		if (options.length > 1) {
 			let newOptions = options.filter((option) => option.id !== optionId);
 			setOptions(newOptions);
+			updateQuestionOptions(id, options);
 		}
 	};
 
@@ -18,11 +26,13 @@ const Question = ({ id, type, onRemove, onChangeQuestionTitle }) => {
 		for (let option of options) {
 			if (option.id === inputId) option.value = input;
 		}
+		updateQuestionOptions(id, options);
 	};
 
 	const handleSelectChange = (e, selectId) => {
 		select[selectId] = e.target.value;
 		setSelect({ ...select });
+		updateQuestionSelect(id, select)
 	};
 
 	return (

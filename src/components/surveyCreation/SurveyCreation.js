@@ -17,10 +17,19 @@ const SurveyCreation = () => {
 	const [description, setDescription] = useState('');
 	const [questions, setQuestions] = useState([]);
 
+	const updateQuestionOptions = (questionId, options) => {
+		for (let question of questions)
+			if (question.id === questionId) question.options = options;
+	};
+
+	const updateQuestionSelect = (questionId, select) => {
+		for (let question of questions)
+			if (question.id === questionId) question.select = select;
+	};
 	const onChangeTitle = (e) => {
 		const title = e.target.value;
 		setTitle(title);
-		setSurveyContent({...surveyContent, title})
+		setSurveyContent({ ...surveyContent, title });
 	};
 	const onChangeDescription = (e) => {
 		const description = e.target.value;
@@ -33,7 +42,7 @@ const SurveyCreation = () => {
 		const questionTitle = e.target.value;
 		for (let question of questions)
 			if (question.id === questionId) question.title = questionTitle;
-		setSurveyContent({...surveyContent, questions})
+		setSurveyContent({ ...surveyContent, questions });
 	};
 
 	const removeQuestion = (questionId) => {
@@ -41,10 +50,9 @@ const SurveyCreation = () => {
 			(question) => question.id !== questionId
 		);
 		setQuestions(newQuestions);
-		setSurveyContent({ ...surveyContent, newQuestions });
+		setSurveyContent({ ...surveyContent, questions });
 	};
 
-	
 	return (
 		<div className='bg-purple-100 grid w-screen h-screen pt-16 grid-cols-6 scrollbar-thin scrollbar-thumb-red-300 scrollbar-track-transparent overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full relative'>
 			{/* Left Buttons */}
@@ -157,6 +165,8 @@ const SurveyCreation = () => {
 						type={question.type}
 						onRemove={removeQuestion}
 						onChangeQuestionTitle={handleQuestionTitleChange}
+						updateQuestionOptions={updateQuestionOptions}
+						updateQuestionSelect={updateQuestionSelect}
 					/>
 				))}
 			</div>
