@@ -6,6 +6,7 @@ const QuestionBody = ({
 	options,
 	setOptions,
 	handleInputChange,
+	handleSelectChange,
 	removeOption,
 }) => {
 	let questionBody;
@@ -40,17 +41,21 @@ const QuestionBody = ({
 			questionBody = (
 				<div className='pl-2 outline-none'>
 					<select
-						name='rating-from'
-						id='rating-from'
-						className='p-2 mr-8 rounded-xl outline-none border focus:border-m-red w-14'
+						name='ratingFrom'
+						id='ratingFrom'
+						className='p-2 mr-8 rounded-xl outline-none border focus:border-m-red w-16'
+						defaultValue='0'
+						onChange={(e) => handleSelectChange(e, 'ratingFrom')}
 					>
 						<option value='0'>0</option>
 						<option value='1'>1</option>
 					</select>
 					<select
-						name='rating-to'
-						id='rating-to'
-						className='p-2 rounded-xl outline-none border focus:border-m-red w-14'
+						name='ratingTo'
+						id='ratingTo'
+						className='p-2 rounded-xl outline-none border focus:border-m-red w-16'
+						defaultValue='5'
+						onChange={(e) => handleSelectChange(e, 'ratingTo')}
 					>
 						<option value='2'>2</option>
 						<option value='3'>3</option>

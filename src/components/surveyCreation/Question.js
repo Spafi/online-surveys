@@ -4,6 +4,7 @@ import UUIDv4 from '../Utils';
 import { ReactComponent as Trash } from './icons/trash.svg';
 const Question = ({ id, type, onRemove, onChangeQuestionTitle }) => {
 	const [options, setOptions] = useState([{ id: UUIDv4(), value: '' }]);
+	const [select, setSelect] = useState({'ratingFrom': '0', 'ratingTo': '5'})
 
 	const removeOption = (optionId) => {
 		if (options.length > 1) {
@@ -19,6 +20,11 @@ const Question = ({ id, type, onRemove, onChangeQuestionTitle }) => {
 		}
 	};
 
+	const handleSelectChange = (e, selectId) => {
+		select[selectId] = e.target.value;
+		setSelect({ ...select });
+	};
+
 	return (
 		<div className='bg-white w-3/4 self-center rounded-xl p-4 shadow-md focus-within:shadow-xl focus-within:bg-gray-50 grid grid-cols-12 gap-4'>
 			<div className='col-span-11'>
@@ -32,8 +38,9 @@ const Question = ({ id, type, onRemove, onChangeQuestionTitle }) => {
 					type={type}
 					options={options}
 					setOptions={setOptions}
-					handleInputChange={handleInputChange}
 					removeOption={removeOption}
+					handleInputChange={handleInputChange}
+					handleSelectChange={handleSelectChange}
 				/>
 			</div>
 			<div className='flex justify-end cursor-pointer'>

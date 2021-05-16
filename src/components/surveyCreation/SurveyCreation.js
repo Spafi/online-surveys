@@ -9,7 +9,6 @@ import Question from './Question';
 import UUIDv4 from '../Utils';
 
 const SurveyCreation = () => {
-
 	// eslint-disable-next-line
 	const [surveyContent, setSurveyContent] = useState({});
 	// eslint-disable-next-line
@@ -21,29 +20,31 @@ const SurveyCreation = () => {
 	const onChangeTitle = (e) => {
 		const title = e.target.value;
 		setTitle(title);
-		console.log(questions);
+		setSurveyContent({...surveyContent, title})
 	};
 	const onChangeDescription = (e) => {
 		const description = e.target.value;
 		setDescription(description);
+		setSurveyContent({ ...surveyContent, description });
+		console.log(surveyContent);
 	};
 
 	const handleQuestionTitleChange = (e, questionId) => {
 		const questionTitle = e.target.value;
-		for (let question of questions) {
+		for (let question of questions)
 			if (question.id === questionId) question.title = questionTitle;
-		}
+		setSurveyContent({...surveyContent, questions})
 	};
-
-
 
 	const removeQuestion = (questionId) => {
 		const newQuestions = questions.filter(
 			(question) => question.id !== questionId
 		);
 		setQuestions(newQuestions);
+		setSurveyContent({ ...surveyContent, newQuestions });
 	};
 
+	
 	return (
 		<div className='bg-purple-100 grid w-screen h-screen pt-16 grid-cols-6 scrollbar-thin scrollbar-thumb-red-300 scrollbar-track-transparent overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full relative'>
 			{/* Left Buttons */}
