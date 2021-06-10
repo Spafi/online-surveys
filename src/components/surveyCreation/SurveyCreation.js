@@ -26,7 +26,13 @@ const SurveyCreation = () => {
 
 	const updateQuestionSelect = (questionId, select) => {
 		for (let question of questions)
-			if (question.id === questionId) question.select = select;
+			if (question.id === questionId) {
+				question.options = [];
+				let from = { id: UUIDv4(), value: select.ratingFrom };
+				let to = { id: UUIDv4(), value: select.ratingTo };
+				question.options.splice(0, 0, from);
+				question.options.splice(1, 0, to);
+			}
 	};
 	const onChangeTitle = (e) => {
 		const title = e.target.value;
@@ -53,12 +59,10 @@ const SurveyCreation = () => {
 	const duplicateQuestion = (questionId) => {};
 
 	const handleSave = () => {
-		const appUser = "localStorage.getItem();"
-		let surveyContent = { title, description, questions, appUser };
+		let surveyContent = { title, description, questions };
 		saveSurvey(surveyContent);
 	};
-	
-	
+
 	const getIp = async () => {
 		await axios
 			.get('http://www.geoplugin.net/json.gp')
@@ -71,20 +75,16 @@ const SurveyCreation = () => {
 	};
 
 	const saveSurvey = (survey) => {
-		console.log(
-			parseJwt(
-				'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzcGFmaWlpQGdtYWlsL…DkyfQ.tScvmV7HHP2rJYGWKBfbpZMipMMt2HHQkxu85BWQ4n8'
-			)
-		);
-
-		// axios
-		// 	.post(surveyUrl, survey)
-		// 	.then((response) => {
-		// 		console.log(response);
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log(error);
-		// 	});
+		console.log(survey);
+		const userId = localStorage.getItem('userId');
+		axios
+			.post(`${surveyUrl}/${userId}`, survey)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 
 	return (
@@ -232,5 +232,5 @@ const SurveyCreation = () => {
 			</div>
 		</div>
 	);
-};;
+};
 export default SurveyCreation;
