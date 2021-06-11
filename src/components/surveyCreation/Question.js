@@ -2,7 +2,6 @@ import { useState } from 'react';
 import QuestionBody from './QuestionBody';
 import UUIDv4 from '../Utils';
 import { ReactComponent as Trash } from './icons/trash.svg';
-import { ReactComponent as Copy } from './icons/copy.svg';
 const Question = ({
 	id,
 	type,
@@ -40,7 +39,7 @@ const Question = ({
 	};
 
 	return (
-		<div className='bg-white w-3/4 self-center rounded-xl p-4 shadow-md focus-within:shadow-xl focus-within:bg-gray-50 grid grid-cols-12 gap-4'>
+		<div className='bg-white w-3/4 max-w-2xl self-center rounded-xl p-4 shadow-md focus-within:shadow-xl focus-within:bg-gray-50 grid grid-cols-12 gap-4'>
 			<div className='col-span-11'>
 				<input
 					onChange={(e) => onChangeQuestionTitle(e, id)}
@@ -59,14 +58,11 @@ const Question = ({
 					handleSelectChange={handleSelectChange}
 				/>
 			</div>
-			<div className='flex flex-col gap-2 justify-between items-end cursor-pointer pr-3'>
+			<div className='flex flex-col gap-2 justify-between items-end pr-3'>
 				<Trash className='w-6 h-6' onClick={() => onRemove(id)} />
-				<Copy
-					className='w-6 h-6 cursor-not-allowed'
-					onClick={() => onDuplicate(id)}
-				/>
+
 				<div className='flex items-center '>
-					<label htmlFor='required' className='pr-3'>
+					<label htmlFor='required' className='pr-3 text-sm'>
 						Required
 					</label>
 					<input

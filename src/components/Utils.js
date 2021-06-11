@@ -7,3 +7,5 @@ const UUIDv4 = () => {
 };
 
 export default UUIDv4;
+
+export const isAuthenticated = () => localStorage.token != null;

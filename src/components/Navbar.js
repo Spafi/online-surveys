@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-
+import {isAuthenticated} from './Utils';
 const Navbar = () => {
 	let location = useLocation()
 	return (
@@ -28,7 +28,7 @@ const Navbar = () => {
 			<div className='items-center flex gap-6 text-xl'>
 				<div>
 
-					{location.pathname !== '/create' &&(<Link to='/create' className='border-b border-transparent hover:border-white'>Create</Link>)}
+					{(location.pathname !== '/create' && isAuthenticated())  && (<Link to='/create' className='border-b border-transparent hover:border-white'>Create</Link>)}
 				</div>
 				<div>My Page</div>
 				<div>About Us</div>

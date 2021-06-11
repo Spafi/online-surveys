@@ -128,7 +128,7 @@ const Login = ({checkLoginStatus}) => {
 				localStorage.setItem('token', response.data.jwt);
 				localStorage.setItem('role', response.data.role);
 				localStorage.setItem('userId', response.data.userId);
-				history.push('/hello');
+				history.push('/create');
 				checkLoginStatus();
 			})
 			.catch((error) => {

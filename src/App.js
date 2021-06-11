@@ -3,6 +3,7 @@ import './App.css';
 import Main from './components/Main';
 import Navbar from './components/Navbar';
 import SurveyCreation from './components/surveyCreation/SurveyCreation';
+import SurveyResponse from './components/surveyResponse/SurveyResponse';
 
 function App() {
 	return (
@@ -10,9 +11,8 @@ function App() {
 			<div className='App'>
 				<Navbar />
 				<Route path='/' exact component={Main} />
-				<Route path='/create'>
-					<SurveyCreation />
-				</Route>
+				<Route path='/create' component={SurveyCreation} />
+				<Route path='/respond' component={SurveyResponse} />
 			</div>
 		</Router>
 	);

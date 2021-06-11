@@ -9,8 +9,9 @@ import { ReactComponent as Upload } from './icons/upload.svg';
 import axios from 'axios';
 
 import Question from './Question';
-import UUIDv4 from '../Utils';
+import UUIDv4, { isAuthenticated } from '../Utils';
 import { surveyUrl } from '../../BASE_URL';
+import { Redirect } from 'react-router';
 
 const SurveyCreation = () => {
 	// eslint-disable-next-line
@@ -86,11 +87,11 @@ const SurveyCreation = () => {
 				console.log(error);
 			});
 	};
-
+	if (!isAuthenticated()) return <Redirect to='/' />;
 	return (
 		<div className='bg-purple-100 grid w-screen h-screen pt-16 grid-cols-6 scrollbar-thin scrollbar-thumb-red-300 scrollbar-track-transparent overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full relative'>
 			{/* Left Buttons */}
-			<div className='fixed h-screen w-1/6 col-span-1 p-8 flex flex-col justify-between border-gradient-t-pink-orange border-r-2'>
+			<div className='fixed h-screen w-1/6 col-span-1 p-8 flex flex-col justify-between border-gradient-t-pink-orange border-r-2 min-w-min'>
 				<div className='flex flex-col gap-4'>
 					<div
 						onClick={() =>
@@ -178,9 +179,9 @@ const SurveyCreation = () => {
 			{/* Survey Display */}
 			<div
 				id='surveyForm'
-				className='col-span-4 col-start-2 p-12 flex flex-col gap-4 '
+				className='col-span-4 col-start-2 p-12 flex flex-col gap-4'
 			>
-				<div className='bg-white w-3/4 self-center rounded-xl p-4 shadow-md focus-within:shadow-xl focus-within:bg-gray-50'>
+				<div className='bg-white w-3/4 max-w-2xl self-center rounded-xl p-4 shadow-md focus-within:shadow-xl focus-within:bg-gray-50'>
 					<input
 						onChange={onChangeTitle}
 						type='text'
