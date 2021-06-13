@@ -8,16 +8,23 @@ import { Redirect } from 'react-router';
 
 import React from 'react';
 
-const SurveyResponse = () => {
+const SurveyResponse = ({match}) => {
+
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [questions, setQuestions] = useState([]);
+  const surveyId = match.params.surveyId;
+
+
+		const updateQuestionResponses = (questionId, responses) => {
+			for (let question of questions)
+				if (question.questionId === questionId) question.responses = responses;
+				console.log(questions);
+		};
 
 	const getSurvey = async () => {
 		await axios
-			.get(
-				'http://localhost:8080/api/v1/survey/7a8936d6-c534-45a0-a217-da892d2d278d'
-			)
+			.get(`${surveyUrl}/${surveyId}`)
 			.then((response) => {
 				console.log(response);
 				setTitle(response.data.title);
@@ -31,7 +38,6 @@ const SurveyResponse = () => {
 
   useEffect(() => {
     getSurvey();
-    
   }, [])
 
 	return (
@@ -54,7 +60,9 @@ const SurveyResponse = () => {
 						key={question.questionId}
 						type={question.type}
 						title={question.title}
+						responses={question.responses}
 						options={question.options}
+						updateQuestionResponses={updateQuestionResponses}
 					/>
 				))}
 			</div>

@@ -1,19 +1,24 @@
 import UUIDv4 from '../Utils';
 import ReactStars from 'react-stars';
-const QuestionBody = ({ type, options, questionId }) => {
-	const ratingChanged = (newRating) => {
-		console.log(newRating);
-	};
-
+const QuestionBody = ({
+	type,
+	options,
+	responses,
+	questionId,
+	handleInputChange,
+	handleCheckboxChange,
+}) => {
 	let questionBody;
 	switch (type) {
 		case 'shortAnswer':
 			questionBody = (
 				<div className='pl-2'>
 					<input
+						id={questionId}
 						type='text'
 						placeholder='Short answer text'
 						className='w-full outline-none rounded-xl pl-2 border focus-within:border-m-pink'
+						onChange={(e) => handleInputChange(e, questionId)}
 					/>
 				</div>
 			);
@@ -23,9 +28,11 @@ const QuestionBody = ({ type, options, questionId }) => {
 			questionBody = (
 				<div className='pl-2 outline-none'>
 					<textarea
+						id={questionId}
 						type='text'
 						placeholder='Long answer text'
 						className='w-full border rounded-xl pl-2 outline-none focus-within:border-m-pink'
+						onChange={(e) => handleInputChange(e, questionId)}
 					/>
 				</div>
 			);
@@ -35,6 +42,9 @@ const QuestionBody = ({ type, options, questionId }) => {
 			let boundaries = [options[0].value, options[1].value];
 			let from = Math.min(...boundaries);
 			let to = Math.max(...boundaries);
+			const ratingChanged = (newRating) => {
+				handleInputChange(newRating, questionId, from);
+			};
 			questionBody = (
 				<div className='pl-2 outline-none'>
 					<div className='flex items-center justify-center'>
@@ -63,7 +73,12 @@ const QuestionBody = ({ type, options, questionId }) => {
 					<div className='pl-2 flex flex-col gap-2'>
 						{options.map((option) => (
 							<div key={option.optionId} className='flex flex-row'>
-								<input type='checkbox' name='checkbox' className='h-5 w-5' />
+								<input
+									type='checkbox'
+									name='checkbox'
+									className='h-5 w-5'
+									onChange={(e) => handleCheckboxChange(questionId, option.optionId)}
+								/>
 								<p className='ml-2 outline-none focus-within:border-m-red w-4/5'>
 									{option.value}
 								</p>

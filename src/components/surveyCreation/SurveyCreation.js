@@ -64,16 +64,7 @@ const SurveyCreation = () => {
 		saveSurvey(surveyContent);
 	};
 
-	const getIp = async () => {
-		await axios
-			.get('http://www.geoplugin.net/json.gp')
-			.then((response) => {
-				console.log(`Your IP: ${response.data.geoplugin_request}`);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	};
+	
 
 	const saveSurvey = (survey) => {
 		console.log(survey);

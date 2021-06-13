@@ -12,7 +12,7 @@ function App() {
 				<Navbar />
 				<Route path='/' exact component={Main} />
 				<Route path='/create' component={SurveyCreation} />
-				<Route path='/respond' component={SurveyResponse} />
+				<Route path='/respond/:surveyId' component={SurveyResponse} />
 			</div>
 		</Router>
 	);

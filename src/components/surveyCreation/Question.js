@@ -59,7 +59,7 @@ const Question = ({
 				/>
 			</div>
 			<div className='flex flex-col gap-2 justify-between items-end pr-3'>
-				<Trash className='w-6 h-6' onClick={() => onRemove(id)} />
+				<Trash className='w-6 h-6 cursor-pointer' onClick={() => onRemove(id)} />
 
 				<div className='flex items-center '>
 					<label htmlFor='required' className='pr-3 text-sm'>
