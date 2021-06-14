@@ -7,6 +7,9 @@ const QuestionBody = ({
 	questionId,
 	handleInputChange,
 	handleCheckboxChange,
+	handleRadioChange,
+	clearRadioSelection,
+	isChecked,
 }) => {
 	let questionBody;
 	switch (type) {
@@ -77,7 +80,7 @@ const QuestionBody = ({
 									type='checkbox'
 									name='checkbox'
 									className='h-5 w-5'
-									onChange={(e) => handleCheckboxChange(questionId, option.optionId)}
+									onChange={() => handleCheckboxChange(option.optionId)}
 								/>
 								<p className='ml-2 outline-none focus-within:border-m-red w-4/5'>
 									{option.value}
@@ -92,15 +95,29 @@ const QuestionBody = ({
 		case 'singleChoice':
 			questionBody = (
 				<>
-					<div className='pl-2 flex flex-col gap-2'>
+					<div className='pl-2 flex flex-col gap-2 relative'>
 						{options.map((option) => (
 							<div key={option.optionId} className='flex flex-row'>
-								<input type='radio' name='radio' className='h-5 w-5' />
-								<label htmlFor='radio' className='ml-2 w-4/5'>
+								<input
+									id={option.optionId}
+									type='radio'
+									name={`radio-${questionId}`}
+									className='h-5 w-5'
+									onChange={() => handleRadioChange(option.optionId)}
+								/>
+								<label htmlFor={`radio-${questionId}`} className='ml-2 w-4/5'>
 									{option.value}
 								</label>
 							</div>
 						))}
+						{isChecked && (
+							<div
+								className='font-bold text-gray-600 cursor-pointer flex justify-end absolute right-0 bottom-0'
+								onClick={() => clearRadioSelection(`radio-${questionId}`)}
+							>
+								Clear selection
+							</div>
+						)}
 					</div>
 				</>
 			);

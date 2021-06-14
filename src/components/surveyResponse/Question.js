@@ -2,8 +2,9 @@ import { useState } from 'react';
 import QuestionBody from './QuestionBody';
 import UUIDv4 from '../Utils';
 const Question = ({ id, type, title, options, updateQuestionResponses }) => {
-	const [responses, setResponses] = useState([{ questionId: id, value: '' }]);
-
+	const [responses, setResponses] = useState([{ questionId: id}]);
+	const [isChecked, setIsChecked] = useState(false) 
+	
 	const handleInputChange = (e, questionId, from = null) => {
 		let input;
 		switch (typeof e) {
@@ -19,12 +20,33 @@ const Question = ({ id, type, title, options, updateQuestionResponses }) => {
 		updateQuestionResponses(id, responses);
 	};
 
-	const handleCheckboxChange = (questionId, optionId) => {
-		console.log(questionId);
-		console.log(optionId);
+	const handleRadioChange = (optionId) => {
+		responses.splice(0, responses.length);
 		let selectedResponse = { questionId: id, value: optionId };
-		// TODO: Handle checkbox change
+		responses.push(selectedResponse);
+		updateQuestionResponses(id, responses);
+		checkIfRadioIsChecked()
+		
 	};
+
+	const clearRadioSelection = (radioName) => {
+		let element = document.getElementsByName(radioName);
+		for (let i = 0; i < element.length; i++) element[i].checked = false;
+		updateQuestionResponses(id, [{ questionId: id}]);
+		setIsChecked(false);
+	};
+
+	const handleCheckboxChange = (optionId) => {
+		let selectedResponse = { questionId: id, value: optionId };
+		if (!responses.some((r) => r.value === selectedResponse.value))
+			responses.push(selectedResponse);
+		else responses.pop(selectedResponse);
+		updateQuestionResponses(id, responses);
+	};
+
+	const checkIfRadioIsChecked = () => {
+		if (responses[0].value !== null) setIsChecked(true)
+	}
 
 	return (
 		<div className='bg-white w-3/4 max-w-2xl self-center rounded-xl p-4 shadow-md grid grid-cols-12 gap-4'>
@@ -38,12 +60,16 @@ const Question = ({ id, type, title, options, updateQuestionResponses }) => {
 					questionId={id}
 					handleInputChange={handleInputChange}
 					handleCheckboxChange={handleCheckboxChange}
+					handleRadioChange={handleRadioChange}
+					clearRadioSelection={clearRadioSelection}
+					isChecked={isChecked}
 				/>
 			</div>
 			<div className='flex flex-col gap-2 justify-between items-end'>
 				<div className='flex items-center '>
 					<p className='text-xs text-red-600'>Required location</p>
 				</div>
+				
 			</div>
 		</div>
 	);

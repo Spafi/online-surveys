@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { ReactComponent as Upload } from '../surveyCreation/icons/upload.svg';
 
 import Question from './Question';
 import UUIDv4, { isAuthenticated } from '../Utils';
@@ -36,6 +37,15 @@ const SurveyResponse = ({match}) => {
 			});
 	};
 
+	const handleRespond = () => {
+		const response = {appUserId: localStorage.getItem('userId')}
+		let responsesArray = []
+		questions.forEach(question => {responsesArray.push(question.responses)})
+		console.log(responsesArray)
+		response.responses = responsesArray
+		console.log(response);
+	}
+
   useEffect(() => {
     getSurvey();
   }, [])
@@ -65,6 +75,19 @@ const SurveyResponse = ({match}) => {
 						updateQuestionResponses={updateQuestionResponses}
 					/>
 				))}
+			</div>
+			<div className='fixed right-0 h-screen w-52 p-8 flex flex-col justify-between'>
+				{questions.length > 0 && (
+					<div className='flex flex-col gap-4'>
+						<div
+							onClick={handleRespond}
+							className='bg-white h-12 cursor-pointer text-lg shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
+						>
+							<Upload className='h-12 pr-4 w-12' />
+							<p className='-ml-2'>Respond</p>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);
