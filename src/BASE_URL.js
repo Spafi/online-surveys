@@ -2,7 +2,6 @@ const BASE_URL = 'http://localhost:8080';
 
 export default BASE_URL;
 
-//
 
 export const registerUrl = BASE_URL + '/api/v1/registration';
 
@@ -13,3 +12,5 @@ export const helloResource = BASE_URL + '/hello';
 export const surveyUrl = BASE_URL + '/api/v1/survey';
 
 export const responseUrl = BASE_URL + '/api/v1/respond';
+
+export const userSurveysUrl = BASE_URL + '/api/v1/survey/user';

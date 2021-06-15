@@ -1,5 +1,9 @@
+import { Redirect } from 'react-router';
+
 import Login from './login/Login';
+import { isAuthenticated } from './Utils';
 const Main = () => {
+	if (isAuthenticated()) return <Redirect to='/user' />;
 	return (
 		<div className='bg-purple-100 w-full'>
 			<div className='p-64 grid grid-cols-2 h-screen '>
