@@ -5,6 +5,7 @@ import { ReactComponent as Upload } from '../surveyCreation/icons/upload.svg';
 import Question from './Question';
 import UUIDv4, { isAuthenticated } from '../Utils';
 import { surveyUrl } from '../../BASE_URL';
+import { responseUrl } from '../../BASE_URL';
 import { Redirect } from 'react-router';
 
 import React from 'react';
@@ -40,15 +41,30 @@ const SurveyResponse = ({match}) => {
 	const handleRespond = () => {
 		const response = {appUserId: localStorage.getItem('userId')}
 		let responsesArray = []
-		questions.forEach(question => {responsesArray.push(question.responses)})
-		console.log(responsesArray)
+		questions.forEach(question => {
+			responsesArray.push(question.responses?.filter((r) => r.value));
+		})
 		response.responses = responsesArray
-		console.log(response);
+		return response
 	}
 
   useEffect(() => {
     getSurvey();
   }, [])
+
+	const sendResponse = () => {
+		
+		const responseBody = handleRespond()
+		console.log(responseBody);
+		axios
+			.post(`${responseUrl}/${surveyId}`, responseBody)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 
 	return (
 		<div className='bg-purple-100 grid w-screen h-screen pt-16 grid-cols-6 scrollbar-thin scrollbar-thumb-red-300 scrollbar-track-transparent overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full relative'>
@@ -57,7 +73,7 @@ const SurveyResponse = ({match}) => {
 				className='col-span-4 col-start-2 p-12 flex flex-col gap-4'
 			>
 				<div className='bg-white w-3/4 max-w-2xl self-center rounded-xl p-4 shadow-md '>
-					<p className='text-3xl w-full text-center mb-4 rounded-xl e py-2 '>
+					<p className='text-3xl w-full text-center mb-4 rounded-xl py-2 '>
 						{title}
 					</p>
 					<p className='text-lg rounded-xl px-4 w-full text-gray-700'>
@@ -80,7 +96,7 @@ const SurveyResponse = ({match}) => {
 				{questions.length > 0 && (
 					<div className='flex flex-col gap-4'>
 						<div
-							onClick={handleRespond}
+							onClick={sendResponse}
 							className='bg-white h-12 cursor-pointer text-lg shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
 						>
 							<Upload className='h-12 pr-4 w-12' />

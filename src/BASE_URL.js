@@ -11,3 +11,5 @@ export const loginUrl = BASE_URL + '/api/v1/authenticate';
 export const helloResource = BASE_URL + '/hello';
 
 export const surveyUrl = BASE_URL + '/api/v1/survey';
+
+export const responseUrl = BASE_URL + '/api/v1/respond';
