@@ -80,7 +80,7 @@ const QuestionBody = ({
 									type='checkbox'
 									name='checkbox'
 									className='h-5 w-5'
-									onChange={() => handleCheckboxChange(option.optionId)}
+									onChange={() => handleCheckboxChange(option.value)}
 								/>
 								<p className='ml-2 outline-none focus-within:border-m-red w-4/5'>
 									{option.value}
@@ -103,7 +103,7 @@ const QuestionBody = ({
 									type='radio'
 									name={`radio-${questionId}`}
 									className='h-5 w-5'
-									onChange={() => handleRadioChange(option.optionId)}
+									onChange={() => handleRadioChange(option.value)}
 								/>
 								<label htmlFor={`radio-${questionId}`} className='ml-2 w-4/5'>
 									{option.value}
