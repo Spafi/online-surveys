@@ -1,4 +1,3 @@
-import UUIDv4 from '../Utils';
 import ReactStars from 'react-stars';
 const QuestionBody = ({
 	type,

@@ -21,6 +21,9 @@ module.exports = {
 				// 'red-green-blue': ['#f00', '#0f0', '#00f'],
 				// 'black-white-with-stops': ['#000', '#000 45%', '#fff 55%', '#fff'],
 			},
+			extend: {
+				width: { 128: '64rem' },
+			},
 		},
 		repeatingLinearBorderGradients: (theme) => ({
 			directions: theme('linearBorderGradients.directions'), // defaults to the same values as linearBorderGradients’ directions

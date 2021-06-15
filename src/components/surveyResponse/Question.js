@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import QuestionBody from './QuestionBody';
-import UUIDv4 from '../Utils';
 const Question = ({ id, type, title, options, updateQuestionResponses }) => {
 	const [responses, setResponses] = useState([{ questionId: id}]);
 	const [isChecked, setIsChecked] = useState(false) 

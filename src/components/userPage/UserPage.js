@@ -17,9 +17,7 @@ const UserPage = () => {
 		await axios
 			.get(`${userSurveysUrl}/${userId}`)
 			.then((response) => {
-				console.log(response);
 				setSurveys(response.data);
-				console.log(surveys);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -28,6 +26,7 @@ const UserPage = () => {
 
 	useEffect(() => {
 		getSurvey();
+		// eslint-disable-next-line
 	}, []);
 
   if (!isAuthenticated()) return <Redirect to='/' />;

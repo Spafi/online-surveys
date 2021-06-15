@@ -49,8 +49,9 @@ const SurveyResponse = ({match}) => {
 	}
 
   useEffect(() => {
-    getSurvey();
-  }, [])
+			getSurvey();
+			// eslint-disable-next-line
+		}, [])
 
 	const sendResponse = () => {
 		

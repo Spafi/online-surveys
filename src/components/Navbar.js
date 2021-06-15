@@ -1,8 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
 import { isAuthenticated, logout } from './Utils';
-
-import { Redirect } from 'react-router';
-
 const Navbar = () => {
 	const handleLogout = () => {
 		logout();
