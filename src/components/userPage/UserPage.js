@@ -37,7 +37,7 @@ const UserPage = () => {
 					<p>It seems that you haven't created any survey.</p>
 				</div>
 			)}
-			<div className='grid grid-cols-4 gap-4 items-stretch p-4 pt-12'>
+			<div className='grid grid-cols-4 gap-4 items-stretch p-4 pt-12 border-red-700 grid-rows-5'>
 				{surveys.map((survey) => (
 					<SurveyCard
 						key={survey.surveyId}

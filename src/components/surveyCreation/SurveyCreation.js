@@ -10,7 +10,7 @@ import axios from 'axios';
 
 import Question from './Question';
 import UUIDv4, { isAuthenticated } from '../Utils';
-import { surveyUrl } from '../../BASE_URL';
+import { surveyUrl, frontendResponseUrl } from '../../BASE_URL';
 import { Redirect } from 'react-router';
 
 const SurveyCreation = () => {
@@ -64,8 +64,6 @@ const SurveyCreation = () => {
 		saveSurvey(surveyContent);
 	};
 
-	
-
 	const saveSurvey = (survey) => {
 		console.log(survey);
 		const userId = localStorage.getItem('userId');
@@ -73,11 +71,22 @@ const SurveyCreation = () => {
 			.post(`${surveyUrl}/${userId}`, survey)
 			.then((response) => {
 				console.log(response);
+				showUrl(response);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	};
+
+	const showUrl = (response) => {
+		let id = response.data;
+		setTitle('');
+		setDescription('');
+		setQuestions([]);
+		document.getElementById('title').value = 'Survey link: ';
+		document.getElementById('description').value = `${frontendResponseUrl}/${id}`;
+	};
+
 	if (!isAuthenticated()) return <Redirect to='/' />;
 	return (
 		<div className='bg-purple-100 grid w-screen h-screen pt-16 grid-cols-6 scrollbar-thin scrollbar-thumb-red-300 scrollbar-track-transparent overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-track-rounded-full relative'>
@@ -174,12 +183,14 @@ const SurveyCreation = () => {
 			>
 				<div className='bg-white w-3/4 max-w-2xl self-center rounded-xl p-4 shadow-md focus-within:shadow-xl focus-within:bg-gray-50'>
 					<input
+						id='title'
 						onChange={onChangeTitle}
 						type='text'
 						placeholder='Survey Title'
 						className='text-3xl border w-full text-center mb-4 rounded-xl outline-none py-2 focus-within:border-m-pink'
 					/>
 					<input
+						id='description'
 						onChange={onChangeDescription}
 						type='text'
 						placeholder='Add description'

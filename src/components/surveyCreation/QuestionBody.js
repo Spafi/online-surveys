@@ -1,6 +1,9 @@
 import { ReactComponent as Add } from './icons/add.svg';
 import UUIDv4 from '../Utils';
 
+
+
+
 const QuestionBody = ({
 	type,
 	options,
@@ -18,7 +21,7 @@ const QuestionBody = ({
 					<input
 						type='text'
 						placeholder='Short answer text'
-						className='w-full outline-none rounded-xl pl-2'
+						className='w-5/6 outline-none rounded-xl pl-2'
 						disabled
 					/>
 				</div>
@@ -31,7 +34,7 @@ const QuestionBody = ({
 					<input
 						type='text'
 						placeholder='Long answer text'
-						className='w-full outline-none rounded-xl pl-2'
+						className='w-5/6 outline-none rounded-xl pl-2'
 						disabled
 					/>
 				</div>
