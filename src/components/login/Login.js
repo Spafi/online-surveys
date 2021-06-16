@@ -5,7 +5,7 @@ import axios from 'axios';
 import { loginUrl, registerUrl } from '../../BASE_URL';
 import { useHistory } from 'react-router';
 
-const Login = ({checkLoginStatus}) => {
+const Login = ({ checkLoginStatus }) => {
 	const history = useHistory();
 
 	const [firstName, setFirstName] = useState('');
@@ -42,7 +42,6 @@ const Login = ({checkLoginStatus}) => {
 	};
 
 	useEffect(() => {
-
 		const signUpButton = document.getElementById('signUp');
 		const signInButton = document.getElementById('signIn');
 		const container = document.getElementById('container');
@@ -80,10 +79,9 @@ const Login = ({checkLoginStatus}) => {
 				)
 				.then((response) => {
 					// TODO: Remove log
-					
+
 					console.log(response);
 					if (response.status === 200) showSuccessfulRegistration();
-					
 				})
 				.catch((error) => {
 					// TODO: implement error handling
@@ -107,10 +105,9 @@ const Login = ({checkLoginStatus}) => {
 		}, 2000);
 	};
 
-	
 	const handleLogin = (e) => {
 		e.preventDefault();
-		
+
 		axios
 			.post(
 				loginUrl,
@@ -128,11 +125,15 @@ const Login = ({checkLoginStatus}) => {
 				localStorage.setItem('token', response.data.jwt);
 				localStorage.setItem('role', response.data.role);
 				localStorage.setItem('userId', response.data.userId);
+				localStorage.setItem('firstName', response.data.firstName)
 				history.push('/user');
 				checkLoginStatus();
 			})
 			.catch((error) => {
 				// TODO: implement error handling
+				try {
+					invalidCredentials();
+				} catch (TypeError) {}
 				console.log(error.response);
 			});
 	};
@@ -161,6 +162,16 @@ const Login = ({checkLoginStatus}) => {
 		setTimeout(() => {
 			document.getElementById('email').classList.remove('invalid-field');
 			document.getElementById('email').placeholder = 'Email';
+		}, 2000);
+	};
+
+	const invalidCredentials = () => {
+		document.getElementById('login-part')?.classList.add('text-red-500');
+		document.getElementById('login-part').innerText = 'Invalid credentials';
+
+		setTimeout(() => {
+			document.getElementById('login-part')?.classList.remove('text-red-500');
+			document.getElementById('login-part').innerText = 'Sign in';
 		}, 2000);
 	};
 
@@ -224,8 +235,10 @@ const Login = ({checkLoginStatus}) => {
 					{/*  */}
 					{/* LOGIN FORM */}
 					<form action='#' method='POST' onSubmit={handleLogin}>
-						<h1 className='text-2xl'>Sign in</h1>
-					
+						<h1 className='text-2xl' id='login-part'>
+							Sign in
+						</h1>
+
 						<input
 							type='email'
 							placeholder='Email'

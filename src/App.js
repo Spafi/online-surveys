@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import SurveyCreation from './components/surveyCreation/SurveyCreation';
 import SurveyResponse from './components/surveyResponse/SurveyResponse';
 import UserPage from './components/userPage/UserPage';
+import ResultsPage from './components/surveyResults/Results';
 
 function App() {
 	return (
@@ -14,7 +15,8 @@ function App() {
 				<Route path='/' exact component={Main} />
 				<Route path='/create' component={SurveyCreation} />
 				<Route path='/respond/:surveyId' component={SurveyResponse} />
-				<Route path='/user' component={UserPage}/>
+				<Route path='/user' component={UserPage} />
+				<Route path='/results/:surveyId' component={ResultsPage} />
 			</div>
 		</Router>
 	);
