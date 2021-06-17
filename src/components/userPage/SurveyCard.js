@@ -1,10 +1,7 @@
-import axios from 'axios';
-import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { frontendResponseUrl } from '../../BASE_URL';
 
 const surveyCard = ({ id, title, description, questionsCount }) => {
-	
 	return (
 		<Link
 			to={`/results/${id}`}
