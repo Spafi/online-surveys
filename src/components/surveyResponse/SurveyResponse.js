@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ReactComponent as Upload } from '../surveyCreation/icons/upload.svg';
-
 import Question from './Question';
-import UUIDv4, { isAuthenticated } from '../Utils';
+import { isAuthenticated } from '../Utils';
 import { surveyUrl } from '../../BASE_URL';
 import { responseUrl } from '../../BASE_URL';
 import { Redirect } from 'react-router';
-
-import React from 'react';
 
 const SurveyResponse = ({match}) => {
 
