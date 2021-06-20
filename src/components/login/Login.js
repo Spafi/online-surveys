@@ -5,7 +5,7 @@ import axios from 'axios';
 import { loginUrl, registerUrl } from '../../BASE_URL';
 import { useHistory } from 'react-router';
 
-const Login = ({ checkLoginStatus }) => {
+const Login = () => {
 	const history = useHistory();
 
 	const [firstName, setFirstName] = useState('');
@@ -78,9 +78,6 @@ const Login = ({ checkLoginStatus }) => {
 					}
 				)
 				.then((response) => {
-					// TODO: Remove log
-
-					console.log(response);
 					if (response.status === 200) showSuccessfulRegistration();
 				})
 				.catch((error) => {
@@ -127,14 +124,14 @@ const Login = ({ checkLoginStatus }) => {
 				localStorage.setItem('userId', response.data.userId);
 				localStorage.setItem('firstName', response.data.firstName)
 				history.push('/user');
-				checkLoginStatus();
+				
 			})
 			.catch((error) => {
 				// TODO: implement error handling
 				try {
 					invalidCredentials();
 				} catch (TypeError) {}
-				console.log(error.response);
+				console.log(error);
 			});
 	};
 

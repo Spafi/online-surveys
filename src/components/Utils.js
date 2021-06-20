@@ -15,3 +15,13 @@ export const isAuthenticated = () => localStorage.token != null;
 export const logout = () => {
 	localStorage.clear();
 };
+
+export function AuthHeader() {
+	let headers = { };
+
+	if (localStorage.token) {
+		headers.Authorization = `Bearer ${localStorage.token}`;
+	}
+
+	return headers;
+}

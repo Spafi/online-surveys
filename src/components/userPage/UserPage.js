@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { userSurveysUrl } from '../../BASE_URL';
 import SurveyCard from './SurveyCard';
-import { isAuthenticated } from '../Utils';
+import { isAuthenticated, AuthHeader } from '../Utils';
 
 const UserPage = () => {
 	const [surveys, setSurveys] = useState([]);
@@ -14,7 +14,7 @@ const UserPage = () => {
 	const getSurvey = async () => {
 		const userId = localStorage.getItem('userId');
 		await axios
-			.get(`${userSurveysUrl}/${userId}`)
+			.get(`${userSurveysUrl}/${userId}`, { headers: AuthHeader() })
 			.then((response) => {
 				setSurveys(response.data);
 			})

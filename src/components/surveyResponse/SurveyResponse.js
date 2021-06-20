@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ReactComponent as Upload } from '../surveyCreation/icons/upload.svg';
 import Question from './Question';
-import { isAuthenticated } from '../Utils';
+import { isAuthenticated, AuthHeader } from '../Utils';
 import { surveyUrl } from '../../BASE_URL';
 import { responseUrl } from '../../BASE_URL';
 import { Redirect } from 'react-router';
@@ -18,14 +18,13 @@ const SurveyResponse = ({match}) => {
 		const updateQuestionResponses = (questionId, responses) => {
 			for (let question of questions)
 				if (question.questionId === questionId) question.responses = responses;
-				console.log(questions);
+				
 		};
 
 	const getSurvey = async () => {
 		await axios
-			.get(`${surveyUrl}/${surveyId}`)
+			.get(`${surveyUrl}/${surveyId}`, { headers: AuthHeader() })
 			.then((response) => {
-				console.log(response);
 				setTitle(response.data.title);
 				setDescription(response.data.description);
 				setQuestions(response.data.questions);

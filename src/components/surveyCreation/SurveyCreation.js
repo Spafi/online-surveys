@@ -9,7 +9,7 @@ import { ReactComponent as Upload } from './icons/upload.svg';
 import axios from 'axios';
 
 import Question from './Question';
-import UUIDv4, { isAuthenticated } from '../Utils';
+import UUIDv4, { isAuthenticated, AuthHeader } from '../Utils';
 import { surveyUrl, frontendResponseUrl } from '../../BASE_URL';
 import { Redirect } from 'react-router';
 
@@ -65,12 +65,10 @@ const SurveyCreation = () => {
 	};
 
 	const saveSurvey = (survey) => {
-		console.log(survey);
 		const userId = localStorage.getItem('userId');
 		axios
-			.post(`${surveyUrl}/${userId}`, survey)
+			.post(`${surveyUrl}/${userId}`, survey, {headers: AuthHeader()})
 			.then((response) => {
-				console.log(response);
 				showUrl(response);
 			})
 			.catch((error) => {
