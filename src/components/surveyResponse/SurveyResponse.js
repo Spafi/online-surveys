@@ -7,19 +7,16 @@ import { surveyUrl } from '../../BASE_URL';
 import { responseUrl } from '../../BASE_URL';
 import { Redirect } from 'react-router';
 
-const SurveyResponse = ({match}) => {
-
+const SurveyResponse = ({ match }) => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [questions, setQuestions] = useState([]);
-  const surveyId = match.params.surveyId;
+	const surveyId = match.params.surveyId;
 
-
-		const updateQuestionResponses = (questionId, responses) => {
-			for (let question of questions)
-				if (question.questionId === questionId) question.responses = responses;
-				
-		};
+	const updateQuestionResponses = (questionId, responses) => {
+		for (let question of questions)
+			if (question.questionId === questionId) question.responses = responses;
+	};
 
 	const getSurvey = async () => {
 		await axios
@@ -34,33 +31,48 @@ const SurveyResponse = ({match}) => {
 			});
 	};
 
+	const checkRequiredResponses = () => {
+		let requiredCompleted = true;
+		questions.forEach((question) => {
+			if (
+				question.required === true &&
+				(!question.responses || !question.responses?.[0].value)
+			) {
+				requiredCompleted = false;
+				return;
+			}
+		});
+		return requiredCompleted;
+	};
 	const handleRespond = () => {
-		const response = {appUserId: localStorage.getItem('userId')}
-		let responsesArray = []
-		questions.forEach(question => {
+		const response = { appUserId: localStorage.getItem('userId') };
+		let responsesArray = [];
+		questions.forEach((question) => {
 			responsesArray.push(question.responses?.filter((r) => r.value));
-		})
-		response.responses = responsesArray
-		return response
-	}
+		});
+		response.responses = responsesArray;
+		return response;
+	};
 
-  useEffect(() => {
-			getSurvey();
-			// eslint-disable-next-line
-		}, [])
+	useEffect(() => {
+		getSurvey();
+		// eslint-disable-next-line
+	}, []);
 
 	const sendResponse = () => {
-		
-		const responseBody = handleRespond()
-		console.log(responseBody);
-		axios
-			.post(`${responseUrl}/${surveyId}`, responseBody)
-			.then((response) => {
-				console.log(response);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		if (checkRequiredResponses()) {
+			const responseBody = handleRespond();
+			console.log(responseBody);
+			axios
+				.post(`${responseUrl}/${surveyId}`, responseBody, { headers: AuthHeader() })
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+			return;
+		}
 	};
 	if (!isAuthenticated()) return <Redirect to='/' />;
 	return (
@@ -85,6 +97,7 @@ const SurveyResponse = ({match}) => {
 						title={question.title}
 						responses={question.responses}
 						options={question.options}
+						required={question.required}
 						updateQuestionResponses={updateQuestionResponses}
 					/>
 				))}

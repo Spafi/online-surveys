@@ -88,6 +88,7 @@ const Results = ({ match }) => {
 						title={question.title}
 						responses={question.questionResponses}
 						options={question.options}
+						required={question.required}
 					/>
 				))}
 			</div>

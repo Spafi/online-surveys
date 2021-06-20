@@ -1,5 +1,5 @@
 import QuestionBody from './QuestionBody';
-const Question = ({ id, type, title, options, responses }) => {
+const Question = ({ id, type, title, options, responses, required }) => {
 	return (
 		<div
 			id={id}
@@ -16,7 +16,7 @@ const Question = ({ id, type, title, options, responses }) => {
 			</div>
 			<div className='flex flex-col gap-2 justify-between items-end'>
 				<div className='flex items-center '>
-					<p className='text-xs text-red-600'>Required location</p>
+					{required === true && <p className='text-xs text-red-600'>Required</p>}
 				</div>
 			</div>
 		</div>

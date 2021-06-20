@@ -10,9 +10,11 @@ const Question = ({
 	onChangeQuestionTitle,
 	updateQuestionOptions,
 	updateQuestionSelect,
+	updateRequired
 }) => {
 	const [options, setOptions] = useState([{ id: UUIDv4(), value: '' }]);
 	const [select, setSelect] = useState({ ratingFrom: '0', ratingTo: '5' });
+	const [required, setRequired] = useState(false);
 
 	if (type === 'rating') updateQuestionSelect(id, select);
 
@@ -36,6 +38,12 @@ const Question = ({
 		select[selectId] = e.target.value;
 		setSelect({ ...select });
 		updateQuestionSelect(id, select);
+	};
+
+	const handleRequiredChange = (e) => {
+		const requiredCheckbox = e.target.checked;
+		setRequired(requiredCheckbox)
+		updateRequired(e, id)
 	};
 
 	return (
@@ -68,7 +76,9 @@ const Question = ({
 					<input
 						type='checkbox'
 						name='required'
-						className='h-6 w-6 cursor-not-allowed'
+						defaultChecked={required}
+						className='h-6 w-6 cursor-pointer'
+						onChange={(e) => handleRequiredChange(e)}
 					/>
 				</div>
 			</div>

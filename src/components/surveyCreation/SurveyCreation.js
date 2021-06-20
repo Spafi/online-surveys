@@ -35,6 +35,7 @@ const SurveyCreation = () => {
 				question.options.splice(1, 0, to);
 			}
 	};
+
 	const onChangeTitle = (e) => {
 		const title = e.target.value;
 		setTitle(title);
@@ -62,6 +63,13 @@ const SurveyCreation = () => {
 	const handleSave = () => {
 		let surveyContent = { title, description, questions };
 		saveSurvey(surveyContent);
+	};
+
+	const updateRequired = (e, questionId) => {
+		const isRequired = e.target.checked;
+		for (let question of questions)
+			if (question.id === questionId) question.required = isRequired;
+			console.log(questions);
 	};
 
 	const saveSurvey = (survey) => {
@@ -205,6 +213,7 @@ const SurveyCreation = () => {
 						onChangeQuestionTitle={handleQuestionTitleChange}
 						updateQuestionOptions={updateQuestionOptions}
 						updateQuestionSelect={updateQuestionSelect}
+						updateRequired={updateRequired}
 					/>
 				))}
 			</div>
