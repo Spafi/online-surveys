@@ -6,8 +6,20 @@ import SurveyCreation from './components/surveyCreation/SurveyCreation';
 import SurveyResponse from './components/surveyResponse/SurveyResponse';
 import UserPage from './components/userPage/UserPage';
 import ResultsPage from './components/surveyResults/Results';
+import jwt from 'jwt-decode';
 
 function App() {
+	const isTokenExpired = () => {
+		if (localStorage.length > 0) {
+			let expiration = new Date(jwt(localStorage.getItem('token')).exp * 1000);
+			let now = new Date();
+			return now > expiration;
+		}
+	};
+
+	if (isTokenExpired()) {
+		localStorage.clear();
+	}
 	return (
 		<Router>
 			<div className='App'>

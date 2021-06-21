@@ -19,6 +19,7 @@ const SurveyCreation = () => {
 	// eslint-disable-next-line
 	const [description, setDescription] = useState('');
 	const [questions, setQuestions] = useState([]);
+	const [image, setImage] = useState(null);
 
 	const updateQuestionOptions = (questionId, options) => {
 		for (let question of questions)
@@ -45,6 +46,24 @@ const SurveyCreation = () => {
 		setDescription(description);
 	};
 
+	const createUrl = (image) => {
+		try {
+			return URL.createObjectURL(image);
+		} catch (TypeError) {
+			return '#';
+		}
+	};
+
+	const onChangeImage = (image, questionId) => {
+		for (let question of questions)
+			if (question.id === questionId) {
+				question.image = image.name;
+				document.getElementById(`${questionId}-image`).src = createUrl(image);
+				setImage(image)
+			}
+		console.log(questions);
+	};
+
 	const handleQuestionTitleChange = (e, questionId) => {
 		const questionTitle = e.target.value;
 		for (let question of questions)
@@ -58,8 +77,6 @@ const SurveyCreation = () => {
 		setQuestions(newQuestions);
 	};
 
-	const duplicateQuestion = (questionId) => {};
-
 	const handleSave = () => {
 		let surveyContent = { title, description, questions };
 		saveSurvey(surveyContent);
@@ -69,13 +86,26 @@ const SurveyCreation = () => {
 		const isRequired = e.target.checked;
 		for (let question of questions)
 			if (question.id === questionId) question.required = isRequired;
-			console.log(questions);
+		console.log(questions);
 	};
 
+
 	const saveSurvey = (survey) => {
+		let formData = new FormData();
+		formData.append('image', image);
+		formData.append(
+			'survey',
+			new Blob([JSON.stringify(survey)], {
+				type: 'application/json',
+			})
+		);
 		const userId = localStorage.getItem('userId');
+		console.log(image);
+		console.log(survey);
 		axios
-			.post(`${surveyUrl}/${userId}`, survey, {headers: AuthHeader()})
+			.post(`${surveyUrl}/${userId}`, formData, {
+				headers: AuthHeader(),
+			})
 			.then((response) => {
 				showUrl(response);
 			})
@@ -183,7 +213,8 @@ const SurveyCreation = () => {
 			{/* END Left Buttons */}
 
 			{/* Survey Display */}
-			<div
+			<form
+				onSubmit={(e) => e.preventDefault()}
 				id='surveyForm'
 				className='col-span-4 col-start-2 p-12 flex flex-col gap-4'
 			>
@@ -209,14 +240,14 @@ const SurveyCreation = () => {
 						key={question.id}
 						type={question.type}
 						onRemove={removeQuestion}
-						onDuplicate={duplicateQuestion}
 						onChangeQuestionTitle={handleQuestionTitleChange}
 						updateQuestionOptions={updateQuestionOptions}
 						updateQuestionSelect={updateQuestionSelect}
 						updateRequired={updateRequired}
+						onChangeImage={onChangeImage}
 					/>
 				))}
-			</div>
+			</form>
 			{/* END Survey Display */}
 
 			<div className='fixed right-0 h-screen w-52 p-8 flex flex-col justify-between'>

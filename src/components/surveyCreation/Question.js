@@ -2,19 +2,21 @@ import { useState } from 'react';
 import QuestionBody from './QuestionBody';
 import UUIDv4 from '../Utils';
 import { ReactComponent as Trash } from './icons/trash.svg';
+import { ReactComponent as Image } from './icons/image.svg';
 const Question = ({
 	id,
 	type,
 	onRemove,
-	onDuplicate,
 	onChangeQuestionTitle,
 	updateQuestionOptions,
 	updateQuestionSelect,
-	updateRequired
+	updateRequired,
+	onChangeImage,
 }) => {
 	const [options, setOptions] = useState([{ id: UUIDv4(), value: '' }]);
 	const [select, setSelect] = useState({ ratingFrom: '0', ratingTo: '5' });
 	const [required, setRequired] = useState(false);
+	const [image, setImage] = useState(null);
 
 	if (type === 'rating') updateQuestionSelect(id, select);
 
@@ -42,8 +44,14 @@ const Question = ({
 
 	const handleRequiredChange = (e) => {
 		const requiredCheckbox = e.target.checked;
-		setRequired(requiredCheckbox)
-		updateRequired(e, id)
+		setRequired(requiredCheckbox);
+		updateRequired(e, id);
+	};
+
+	const handleImageChange = (e, id) => {
+		const image = e.target.files[0];
+		setImage(image);
+		onChangeImage(image, id);
 	};
 
 	return (
@@ -65,10 +73,28 @@ const Question = ({
 					handleInputChange={handleInputChange}
 					handleSelectChange={handleSelectChange}
 				/>
+				<div className={`flex flex-row relative ${image !== null ? '' : 'hidden'}`}>
+					<img id={`${id}-image`} src='#' alt='question' className={`p-6 `} />
+					<Trash
+						className=' w-6 h-6 cursor-pointer absolute top-1/2 -right-2'
+						onClick={() => setImage(null)}
+					/>
+				</div>
 			</div>
 			<div className='flex flex-col gap-2 justify-between items-end pr-3'>
-				<Trash className='w-6 h-6 cursor-pointer' onClick={() => onRemove(id)} />
-
+				<div className='flex flex-col gap-2 pt-1'>
+					<Trash className='w-6 h-6 cursor-pointer' onClick={() => onRemove(id)} />{' '}
+					<input
+						type='file'
+						accept='image/*'
+						id={`${id}-file-upload`}
+						hidden
+						onChange={(e) => handleImageChange(e, id)}
+					/>
+					<label htmlFor={`${id}-file-upload`} className='w-6 h-6'>
+						<Image className='w-6 h-6 cursor-pointer' />
+					</label>
+				</div>
 				<div className='flex items-center '>
 					<label htmlFor='required' className='pr-3 text-sm'>
 						Required
