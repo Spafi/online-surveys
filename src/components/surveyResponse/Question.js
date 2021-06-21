@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { downloadImageUrl } from '../../BASE_URL';
 import QuestionBody from './QuestionBody';
 const Question = ({
 	id,
@@ -7,9 +8,11 @@ const Question = ({
 	options,
 	required,
 	updateQuestionResponses,
+	imageName,
 }) => {
 	const [responses, setResponses] = useState([{ questionId: id }]);
 	const [isChecked, setIsChecked] = useState(false);
+
 
 	const handleInputChange = (e, questionId, from = null) => {
 		let input;
@@ -69,6 +72,16 @@ const Question = ({
 					clearRadioSelection={clearRadioSelection}
 					isChecked={isChecked}
 				/>
+				<div
+					className={`flex flex-row relative ${imageName !== null ? '' : 'hidden'}`}
+				>
+					<img
+						id={`${id}-image`}
+						src={imageName !== null ? `${downloadImageUrl}/${imageName}` : '#'}
+						alt='question'
+						className={`p-6 `}
+					/>
+				</div>
 			</div>
 			<div className='flex flex-col gap-2 justify-between items-end'>
 				<div className='flex items-center '>

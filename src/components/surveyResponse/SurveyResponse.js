@@ -6,12 +6,14 @@ import { isAuthenticated, AuthHeader } from '../Utils';
 import { surveyUrl } from '../../BASE_URL';
 import { responseUrl } from '../../BASE_URL';
 import { Redirect } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const SurveyResponse = ({ match }) => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [questions, setQuestions] = useState([]);
 	const surveyId = match.params.surveyId;
+	let history = useHistory();
 
 	const updateQuestionResponses = (questionId, responses) => {
 		for (let question of questions)
@@ -34,12 +36,13 @@ const SurveyResponse = ({ match }) => {
 	const checkRequiredResponses = () => {
 		let requiredCompleted = true;
 		questions.forEach((question) => {
-			if (
-				question.required === true &&
-				(!question.responses || !question.responses?.[0].value)
-			) {
+			if (question.required && question.responses === undefined) {
 				requiredCompleted = false;
-				return;
+			}
+			if (question.type === 'multipleChoice' && question.responses !== undefined) {
+				if (question.responses[1]?.value === undefined) {
+					requiredCompleted = false;
+				}
 			}
 		});
 		return requiredCompleted;
@@ -60,13 +63,15 @@ const SurveyResponse = ({ match }) => {
 	}, []);
 
 	const sendResponse = () => {
+		console.log(checkRequiredResponses());
 		if (checkRequiredResponses()) {
 			const responseBody = handleRespond();
 			console.log(responseBody);
 			axios
 				.post(`${responseUrl}/${surveyId}`, responseBody, { headers: AuthHeader() })
 				.then((response) => {
-					console.log(response);
+					// console.log(response);
+					history.push('/user');
 				})
 				.catch((error) => {
 					console.log(error);
@@ -98,6 +103,7 @@ const SurveyResponse = ({ match }) => {
 						responses={question.responses}
 						options={question.options}
 						required={question.required}
+						imageName={question.imageName}
 						updateQuestionResponses={updateQuestionResponses}
 					/>
 				))}
@@ -106,7 +112,7 @@ const SurveyResponse = ({ match }) => {
 				{questions.length > 0 && (
 					<div className='flex flex-col gap-4'>
 						<div
-							onClick={sendResponse}
+							onClick={() => sendResponse()}
 							className='bg-white h-12 cursor-pointer text-lg shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
 						>
 							<Upload className='h-12 pr-4 w-12' />

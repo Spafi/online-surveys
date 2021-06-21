@@ -75,10 +75,10 @@ const Question = ({
 				/>
 				<div className={`flex flex-row relative ${image !== null ? '' : 'hidden'}`}>
 					<img id={`${id}-image`} src='#' alt='question' className={`p-6 `} />
-					<Trash
+					{/* <Trash
 						className=' w-6 h-6 cursor-pointer absolute top-1/2 -right-2'
-						onClick={() => setImage(null)}
-					/>
+						onClick={() => handleImageChange(null, id)}
+					/> */}
 				</div>
 			</div>
 			<div className='flex flex-col gap-2 justify-between items-end pr-3'>

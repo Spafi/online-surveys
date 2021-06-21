@@ -19,7 +19,7 @@ const SurveyCreation = () => {
 	// eslint-disable-next-line
 	const [description, setDescription] = useState('');
 	const [questions, setQuestions] = useState([]);
-	const [image, setImage] = useState(null);
+	const [imagesArray, setImagesArray] = useState([]);
 
 	const updateQuestionOptions = (questionId, options) => {
 		for (let question of questions)
@@ -57,11 +57,12 @@ const SurveyCreation = () => {
 	const onChangeImage = (image, questionId) => {
 		for (let question of questions)
 			if (question.id === questionId) {
-				question.image = image.name;
+				question.imageName = image.name;
 				document.getElementById(`${questionId}-image`).src = createUrl(image);
-				setImage(image)
+				if (!imagesArray.some((img) => img.name === image.name)) {
+					setImagesArray([...imagesArray, image]);
+				}
 			}
-		console.log(questions);
 	};
 
 	const handleQuestionTitleChange = (e, questionId) => {
@@ -89,10 +90,9 @@ const SurveyCreation = () => {
 		console.log(questions);
 	};
 
-
 	const saveSurvey = (survey) => {
 		let formData = new FormData();
-		formData.append('image', image);
+		imagesArray.forEach((image) => formData.append('images', image));
 		formData.append(
 			'survey',
 			new Blob([JSON.stringify(survey)], {
@@ -100,8 +100,6 @@ const SurveyCreation = () => {
 			})
 		);
 		const userId = localStorage.getItem('userId');
-		console.log(image);
-		console.log(survey);
 		axios
 			.post(`${surveyUrl}/${userId}`, formData, {
 				headers: AuthHeader(),

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { loginUrl, registerUrl } from '../../BASE_URL';
 import { useHistory } from 'react-router';
 
-const Login = () => {
+const Login = ({ setSuccessRegister }) => {
 	const history = useHistory();
 
 	const [firstName, setFirstName] = useState('');
@@ -78,7 +78,10 @@ const Login = () => {
 					}
 				)
 				.then((response) => {
-					if (response.status === 200) showSuccessfulRegistration();
+					if (response.status === 200) {
+						showSuccessfulRegistration();
+						setSuccessRegister(true)
+					}
 				})
 				.catch((error) => {
 					// TODO: implement error handling
@@ -122,9 +125,8 @@ const Login = () => {
 				localStorage.setItem('token', response.data.jwt);
 				localStorage.setItem('role', response.data.role);
 				localStorage.setItem('userId', response.data.userId);
-				localStorage.setItem('firstName', response.data.firstName)
+				localStorage.setItem('firstName', response.data.firstName);
 				history.push('/user');
-				
 			})
 			.catch((error) => {
 				// TODO: implement error handling

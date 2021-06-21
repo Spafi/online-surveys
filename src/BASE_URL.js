@@ -15,3 +15,5 @@ export const surveyUrl = BASE_URL + '/api/v1/survey';
 export const responseUrl = BASE_URL + '/api/v1/respond';
 
 export const userSurveysUrl = BASE_URL + '/api/v1/survey/user';
+
+export const downloadImageUrl = BASE_URL + '/api/v1/images/getImage';

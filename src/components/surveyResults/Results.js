@@ -89,6 +89,7 @@ const Results = ({ match }) => {
 						responses={question.questionResponses}
 						options={question.options}
 						required={question.required}
+						imageName={question.imageName}
 					/>
 				))}
 			</div>

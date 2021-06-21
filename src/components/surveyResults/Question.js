@@ -1,5 +1,14 @@
+import { downloadImageUrl } from '../../BASE_URL';
 import QuestionBody from './QuestionBody';
-const Question = ({ id, type, title, options, responses, required }) => {
+const Question = ({
+	id,
+	type,
+	title,
+	options,
+	responses,
+	required,
+	imageName,
+}) => {
 	return (
 		<div
 			id={id}
@@ -13,6 +22,16 @@ const Question = ({ id, type, title, options, responses, required }) => {
 					responses={responses}
 					questionId={id}
 				/>
+				<div
+					className={`flex flex-row relative ${imageName !== null ? '' : 'hidden'}`}
+				>
+					<img
+						id={`${id}-image`}
+						src={imageName !== null ? `${downloadImageUrl}/${imageName}` : '#'}
+						alt='question'
+						className={`p-6 `}
+					/>
+				</div>
 			</div>
 			<div className='flex flex-col gap-2 justify-between items-end'>
 				<div className='flex items-center '>
