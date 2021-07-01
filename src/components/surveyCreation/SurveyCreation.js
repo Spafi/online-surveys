@@ -255,14 +255,6 @@ const SurveyCreation = () => {
 							onClick={handleSave}
 							className='bg-white h-12 cursor-pointer text-lg shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
 						>
-							<Save className='h-8 pr-4' />
-							<p>Save</p>
-						</div>
-
-						<div
-							// onClick={handleSave}
-							className='bg-white h-12 cursor-pointer text-lg shadow-md hover:shadow-xl flex items-center rounded-3xl pl-6 transition duration-300 ease-in-out transform hover:scale-110 hover:-translate-y-1'
-						>
 							<Upload className='h-12 pr-4 w-12' />
 							<p>Send</p>
 						</div>

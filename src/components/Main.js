@@ -8,7 +8,7 @@ const Main = () => {
 	if (isAuthenticated()) return <Redirect to='/user' />;
 	return (
 		<div className='bg-purple-100 w-full'>
-			<div className='p-64 grid grid-cols-2 h-screen relative'>
+			<div className='p-48 grid grid-cols-2 h-screen relative'>
 				{successRegister && (
 					<div
 						className={`absolute top-24 border shadow-md rounded-full bg-white flex justify-self-center text-xl p-4`}
